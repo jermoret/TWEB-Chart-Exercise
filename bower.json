@@ -1,0 +1,12 @@
+{
+  "name": "tweb-chart-exercice",
+  "version": "0.0.1",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "dependencies": {
+    "angular-chart.js": "~0.8.5"
+  }
+}
