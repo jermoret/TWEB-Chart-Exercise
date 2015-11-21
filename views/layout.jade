@@ -1,25 +1,45 @@
 doctype html
-html(ng-app="app")
+html
   head
     meta(charset='UTF-8')
     meta(name='viewport', content='width=device-width')
-    title= title
+    title='TWEB-Chart-Exercise'
     block css
       link(rel='stylesheet', href='/css/style.css')
       link(rel='stylesheet', href='components/angular-chart.js/dist/angular-chart.css')
+      link(rel='stylesheet', href='components/bootstrap/dist/css/bootstrap.min.css')
     block js
       script(src='components/angular/angular.min.js')
       script(src='components/Chart.js/Chart.min.js')
       script(src='components/angular-chart.js/dist/angular-chart.js')
       script(src='components/angular-socket-io/socket.js')
       script(src='components/angular-ui-router/release/angular-ui-router.js')
+      script(src='components/socket.io-client/socket.io.js')
       script(src='js/app.js')
+      script(src='components/jquery/dist/jquery.min.js')
       if ENV_DEVELOPMENT
         script(src='http://localhost:35729/livereload.js')
-  body
-    a(ui-sref='audiance') Audiance
-    a(ui-sref='board') Board
-    a(ui-sref='debug') Debug
 
-    div(ui-view)
+  body(ng-app="app")
+
+    // Static navbar
+    nav.navbar.navbar-inverse
+      .container-fluid
+        .navbar-header
+          button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(ui-sref='index') TWEB Realtime Demo
+        #navbar.navbar-collapse.collapse
+          ul.nav.navbar-nav
+            li(ui-sref-active='active')
+              a(ui-sref='audiance') Audiance
+            li(ui-sref-active='active')
+              a(ui-sref='board') Board
+            li(ui-sref-active='active')
+              a(ui-sref='debug') Debug
+
+    div(ui-view, ng-controller='chartCtrl')
       block content

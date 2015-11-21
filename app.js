@@ -20,6 +20,8 @@ var env = process.env.NODE_ENV || 'development';
 app.locals.ENV = env;
 app.locals.ENV_DEVELOPMENT = env == 'development';
 
+var port = process.env.PORT || 3000;
+
 // view engine setup
 
 app.set('views', path.join(__dirname, 'views'));
@@ -34,11 +36,11 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//app.use('/', routes);
+app.use('/', routes);
 //app.use('/users', users);
 
 
-app.use('/views/:name', function(req, res){
+/*app.use('/views/:name', function(req, res){
   res.render(req.params.name);
 });
 
@@ -46,7 +48,7 @@ app.use('/*', function(req, res) {
   res.render('index', {
     title: 'test'
   });
-});
+});*/
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -82,5 +84,35 @@ app.use(function(err, req, res, next) {
     });
 });
 
+var votes = {
+  yes:0,
+  no:0,
+  idontknow:0
+}
+io.on('connection', function(socket) {
+  socket.emit('updateVotes', votes);
+  socket.on('yes', function() {
+    votes.yes++;
+    socket.emit('updateVotes', votes);
+  });
+  socket.on('no', function() {
+    votes.no++;
+    socket.emit('updateVotes', votes);
+  });
+  socket.on('idknow', function() {
+    votes.idontknow++;
+    socket.emit('updateVotes', votes);
+  });
+  socket.on('reset', function() {
+    votes.idontknow = 0;
+    votes.yes = 0;
+    votes.no = 0;
+    socket.emit('updateVotes', votes);
+  });
+});
 
-module.exports = app;
+server.listen(port, function () {
+  console.log('Express server listening on port ' + port);
+});
+
+//module.exports = app;

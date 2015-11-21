@@ -1,0 +1,24 @@
+h1 Are you happy ?
+div.row
+  div.col-md-4
+      button.btn-block(type='button', class='btn btn-primary', ng-click='vote("yes")') Yes
+  div.col-md-4
+      button.btn-block(type='button', class='btn btn-primary', ng-click='vote("no")') No
+  div.col-md-4
+      button.btn-block(type='button', class='btn btn-primary', ng-click='vote("idknow")') I don't know
+br
+div.row
+  div.col-md-12
+    button.btn-block.btn.btn-danger(type='button', ng-click='reset()') Reset votes
+h1 Here is how you and the other people feel...
+div.row
+  div.col-md-6
+    canvas#doughnut.chart.chart-doughnut(chart-data='data', chart-labels='labels', chart-legend='true')
+  div.col-md-6
+    canvas#bar.chart.chart-bar(chart-data='[data]', chart-labels='labels')
+div.row
+  div.col-md-6
+    canvas#pie.chart.chart-pie(chart-data='data', chart-labels='labels', chart-legend='true')
+  div.col-md-6
+    canvas#line.chart.chart-line(chart-data='[data]', chart-labels='labels')
+

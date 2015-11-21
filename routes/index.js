@@ -1,13 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
-/*var app = express();
-var server = require('http').Server(app);
-var io = require('socket.io')(server);*/
-/* GET home page. */
+router.get('/views/partials/:name', function(req, res) {
+  res.render('partials/' + req.params.name);
+});
 
-router.get('/', function(req, res) {
-  res.render('index', { title: 'Express' });
+router.get('/*', function(req, res) {
+  res.render('index');
 });
 
 module.exports = router;
